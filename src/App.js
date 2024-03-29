@@ -21,7 +21,7 @@ function App() {
       <h1>Weather Application</h1>
       <Search onSelectItem={selectCity} />
 
-      <div data-testid="my-weather-list">
+      <div data-testid="my-weather-list" className="cities-container">
         {selected &&
           selected.map((city) => <WeatherCard key={`${city.lat}-${city.lon}`} city={city} />)}
       </div>
