@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./Search.css";
 
 const Search = ({ onSelectItem }) => {
   const [query, setQuery] = useState("");
@@ -27,28 +28,32 @@ const Search = ({ onSelectItem }) => {
 
   const onSelect = (city) => {
     onSelectItem(city);
+    setSearchResults([]);
   };
 
   return (
-    <div>
-      <div>
-        <input
-          type="text"
-          data-testid="search-input"
-          onChange={inputChangeHandler}
-        />
+    <div className="search-container">
+      <div className="input-container">
+        <input type="text" data-testid="search-input" onChange={inputChangeHandler} />
         <button data-testid="search-button" onClick={buttonClickHandler}>
           Search
         </button>
       </div>
 
-      <div data-testid="search-results">
-        {searchResults.map((city) => (
-          <div key={`${city.lat}-${city.lon}`} onClick={() => onSelect(city)}>
-            {city.name}, {city.lat}, {city.lon}
-          </div>
-        ))}
-      </div>
+      {searchResults.length > 0 && (
+        <div data-testid="search-results" className="search-results">
+          {searchResults.map((city) => (
+            <div
+              className="search-result"
+              key={`${city.lat}-${city.lon}`}
+              onClick={() => onSelect(city)}
+            >
+              <span className="city-name">{city.name}</span>
+              <span className="city-location">{city.lat}, {city.lon}</span>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
